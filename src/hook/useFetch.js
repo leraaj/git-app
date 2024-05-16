@@ -10,6 +10,7 @@ function useFetch(url) {
       const response = await fetch(url, { mode: "no-cors" });
       if (!response.ok) {
         setLoading(false);
+        setError("Network response was not ok");
         throw new Error("Network response was not ok");
       }
       const jsonData = await response.json();
@@ -27,6 +28,7 @@ function useFetch(url) {
         const response = await fetch(url);
         if (!response.ok) {
           setLoading(false);
+          setError("Network response was not ok");
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
