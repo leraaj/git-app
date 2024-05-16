@@ -11,7 +11,7 @@ const Home = () => {
     <div>
       <Navbar />
       <section>Home</section>
-      {loading && <p>Loading...</p>}
+      {loading ? <p>Loading...</p> : !data ? <p>Error</p> : ""}
       {data && (
         <ul>
           {data.map((user) => (
