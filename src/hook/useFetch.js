@@ -7,7 +7,7 @@ function useFetch(url) {
   const refresh = async () => {
     setLoading(true);
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, { mode: "no-cors" });
       if (!response.ok) {
         setLoading(false);
         throw new Error("Network response was not ok");
