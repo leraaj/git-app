@@ -7,12 +7,8 @@ const Home = () => {
   const URL = `${API}user/current-user`;
   const { data, loading, error, refresh } = useFetch(`${API}users`);
   useEffect(() => {
-    if (data) {
-      console.log(data);
-    }
-    if (error) {
-      console.error(error);
-    }
+    console.log(data);
+    console.error(error);
   }, []);
 
   return (
@@ -28,7 +24,7 @@ const Home = () => {
           ))}
         </ul>
       ) : (
-        <p>{error}</p>
+        <p>No data</p>
       )}
     </div>
   );
