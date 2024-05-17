@@ -35,8 +35,8 @@ const Home = () => {
       <Navbar />
       <h1>Home</h1>
       <ul>
-        {users.map((user) => (
-          <li key={user.id}>{user.name}</li>
+        {users.map((user, index) => (
+          <li key={index}>{user.fullName}</li>
         ))}
       </ul>
     </div>
