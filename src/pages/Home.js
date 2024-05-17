@@ -1,36 +1,42 @@
-import React, { useEffect, useState } from "react";
+// src/UsersList.js
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
-import useFetch from "../hook/useFetch";
+
+const URL = "https://darkshots-server.onrender.com/api/users";
 
 const Home = () => {
-  const API = `${process.env.REACT_APP_API_URL}`;
-  const URL = `${API}/api/users`;
-  const [data, setData] = useState(null);
-  const fetchData = async () => {
-    try {
-      const response = await fetch(URL);
-      if (!response.ok) {
-        console.error(response);
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      setData(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
-    fetchData();
+    fetch(URL)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok " + response.statusText);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setUsers(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
+        setLoading(false);
+      });
   }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <div>
       <Navbar />
-      <section>Home</section>
-
+      <h1>Home</h1>
       <ul>
-        {data?.map((user) => (
-          <li key={user.id}>{user.fullName}</li>
+        {users.map((user) => (
+          <li key={user.id}>{user.name}</li>
         ))}
       </ul>
     </div>
